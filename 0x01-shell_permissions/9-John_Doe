@@ -1,0 +1,6 @@
+#!/bin/bash
+
+file_path=./
+mode=755
+
+chmod $mode $file_path
