@@ -1,0 +1,2 @@
+#!/bin/bash
+awk -F'\t' '{count[$1]++} END {for (ip in count) print ip,count[ip]}' "${1:-/dev/stdin}" | sort -nrk2 | head -n11
