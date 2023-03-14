@@ -1,0 +1,2 @@
+#!/bin/bash
+echo $((ibase=water;$WATER+ibase=stir;$STIR)) | xxd -r -p | tr -d '\n' | openssl enc -a -A | tr -d '\n' | openssl enc -d -base64 | xxd -p -u
