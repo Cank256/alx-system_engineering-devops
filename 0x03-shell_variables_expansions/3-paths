@@ -1,0 +1,2 @@
+#!/bin/bash
+IFS=':' read -ra DIRS <<< "$PATH"; COUNT=0; for DIR in "${DIRS[@]}"; do if [[ -d "$DIR" ]]; then ((COUNT++)); fi; done;
