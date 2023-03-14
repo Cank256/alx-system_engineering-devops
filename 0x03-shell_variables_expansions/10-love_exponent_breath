@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $(echo "$BREATH^$LOVE")
+echo $(awk "BEGIN {print $BREATH ** $LOVE}")
