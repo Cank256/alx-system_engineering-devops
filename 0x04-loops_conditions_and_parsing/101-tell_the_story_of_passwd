@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# This script displays a story based on user information from /etc/passwd.
+
+# Use a while loop to read each line of the /etc/passwd file
+while IFS=: read -r username _ userid groupid info home_directory shell
+do
+    # Extract additional information from the user's entry
+    IFS=',' read -r _ _ _ user_info _ <<< "$info"
+    IFS=' ' read -r _ _ _ _ passcode _ <<< "$user_info"
+
+    # Display the story based on user information
+    echo "The user $username is part of the $groupid gang,"
+    echo "lives in $home_directory and rides $shell."
+    echo "USER ID's place is protected by the passcode $passcode,"
+    echo "more info about the user here: $userid $info"
+    echo
+done < /etc/passwd
