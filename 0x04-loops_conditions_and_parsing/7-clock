@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Initialize variables for hours and minutes
+hour=0
+minute=1
+
+# Use a while loop to display time until we reach 12:59
+while [ $hour -le 12 ] && [ $minute -le 59 ]
+do
+    # Display the current time in 12-hour format
+    printf "%02d:%02d\n" $hour $minute
+
+    # Increment the minute
+    minute=$((minute + 1))
+
+    # Check if we need to increment the hour and reset the minute
+    if [ $minute -gt 59 ]
+    then
+        minute=0
+        hour=$((hour + 1))
+    fi
+done | head -n 70

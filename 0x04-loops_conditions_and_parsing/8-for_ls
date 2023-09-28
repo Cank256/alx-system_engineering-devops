@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Use a for loop to iterate over the files and directories in the current directory
+for item in *
+do
+    # Check if the item is a file or directory (not hidden)
+    if [ -e "$item" ] && [ "${item:0:1}" != "." ]
+    then
+        # Extract the part of the name after the first dash
+        name_after_dash=$(echo "$item" | cut -d'-' -f2-)
+
+        # Display the formatted name
+        echo "$name_after_dash"
+    fi
+done

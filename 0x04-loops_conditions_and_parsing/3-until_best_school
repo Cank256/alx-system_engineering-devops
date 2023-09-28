@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Initialize a counter
+count=0
+
+# Use an until loop to display "Best School" 10 times
+until [ $count -ge 10 ]
+do
+    echo "Best School"
+    
+    # Increment the counter
+    count=$((count + 1))
+done

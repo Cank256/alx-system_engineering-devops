@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Initialize a counter
+count=0
+
+# Use a while loop to display "Best School" 10 times
+while [ $count -lt 10 ]
+do
+    if [ $count -eq 8 ]
+    then
+        # Display "Best School" and then "Hi" on a new line
+        echo "Best School"
+        echo "Hi"
+    else
+        # Display "Best School"
+        echo "Best School"
+    fi
+    
+    # Increment the counter
+    count=$((count + 1))
+done
