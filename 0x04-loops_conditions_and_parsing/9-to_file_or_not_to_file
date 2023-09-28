@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# This script checks information about the school file.
 
 # Define the file name
 file_name="school"

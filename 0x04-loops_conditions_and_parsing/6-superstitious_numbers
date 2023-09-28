@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# This script displays numbers and messages based on certain conditions.
 
 # Initialize a counter
 count=1
@@ -6,24 +7,21 @@ count=1
 # Use a while loop to iterate from 1 to 20
 while [ $count -le 20 ]
 do
+    # Use a case statement to display messages for specific loop iterations
     case $count in
         4)
-            # Display "4" and then "bad luck from China" for the 4th iteration
             echo "4"
             echo "bad luck from China"
             ;;
         9)
-            # Display "9" and then "bad luck from Japan" for the 9th iteration
             echo "9"
             echo "bad luck from Japan"
             ;;
         17)
-            # Display "17" and then "bad luck from Italy" for the 17th iteration
             echo "17"
             echo "bad luck from Italy"
             ;;
         *)
-            # Display the current number for other iterations
             echo "$count"
             ;;
     esac

@@ -1,10 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# This script displays the content of the current directory in a list format with modified names.
 
 # Use a for loop to iterate over the files and directories in the current directory
 for item in *
 do
-    # Check if the item is a file or directory (not hidden)
-    if [ -e "$item" ] && [ "${item:0:1}" != "." ]
+    # Check if the item is a file or directory (not hidden) and contains a dash
+    if [ -e "$item" ] && [ "${item:0:1}" != "." ] && [[ "$item" == *-* ]]
     then
         # Extract the part of the name after the first dash
         name_after_dash=$(echo "$item" | cut -d'-' -f2-)
