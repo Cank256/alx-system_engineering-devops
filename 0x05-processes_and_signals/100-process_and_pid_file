@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Define the PID file path
+pid_file="/var/run/myscript.pid"
+
+# Function to remove the PID file and terminate the script
+cleanup() {
+    echo "Cleaning up and terminating..."
+    rm -f "$pid_file"
+    exit 0
+}
+
+# Trap signals and specify actions
+trap 'echo "I hate the kill command"' SIGTERM
+trap 'echo "Y U no love me?!"' SIGINT
+trap 'cleanup' SIGQUIT SIGTERM
+
+# Get the script's PID and save it to the PID file
+echo "$$" > "$pid_file"
+
+# Display the message indefinitely
+echo "To infinity and beyond indefinitely"
+
+# Keep the script running
+while true; do
+    sleep 1
+done

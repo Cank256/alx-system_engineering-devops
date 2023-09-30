@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Define the process name and PID file
+process_name="manage_my_process"
+pid_file="/var/run/${process_name}.pid"
+
+start() {
+    if [ -f "$pid_file" ]; then
+        echo "$process_name is already running."
+    else
+        ./manage_my_process &
+        echo $! > "$pid_file"
+        echo "$process_name started"
+    fi
+}
+
+stop() {
+    if [ -f "$pid_file" ]; then
+        pid=$(cat "$pid_file")
+        kill "$pid"
+        rm -f "$pid_file"
+        echo "$process_name stopped"
+    else
+        echo "$process_name is not running."
+    fi
+}
+
+restart() {
+    stop
+    start
+    echo "$process_name restarted"
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac
+
+exit 0
