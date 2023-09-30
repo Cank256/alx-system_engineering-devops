@@ -1,6 +1,3 @@
 #!/bin/bash
-
-# Use 'ps aux' to list all processes, including those without a TTY
-# Sort the output by parent process ID (PPID) for hierarchy view
-# Format the output with headers for user-oriented display
+# Display a list of currently running processes.
 ps aux
