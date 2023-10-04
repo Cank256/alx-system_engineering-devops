@@ -1,11 +1,14 @@
 #!/usr/bin/env ruby
 
 def extract_sms_info(text)
+    # Remove HTML entities like &nbsp; and replace them with spaces
+    cleaned_text = text.gsub(/&nbsp;/, ' ')
+    
     # Define the regular expression pattern to match the required information
-    pattern = /\[from:(\+\d+)\] \[to:(\+\d+)\] \[flags:(.*?)\]/
+    pattern = /\[from:(\d+)\] \[to:(\d+)\] \[flags:(.*?)\]/
     
     # Use the pattern to extract sender, receiver, and flags
-    match_data = text.match(pattern)
+    match_data = cleaned_text.match(pattern)
     
     if match_data
         sender = match_data[1]
@@ -17,8 +20,8 @@ def extract_sms_info(text)
     end
 end
 
-# Input text
-input_text = 'Feb 1 11:00:00 ip-10-0-64-10 mdr: 2016-02-01 11:00:00 Receive SMS [SMSC:SYBASE2] [SVC:] [ACT:] [BINF:] [FID:] [from:+17272713208] [to:+19172319348] [flags:-1:0:-1:0:-1] [msg:136:Orbiting this at a distance of roughly ninety-two million miles is an utterly insignificant little blue green planet whose ape-descended] [udh:0:]'
+# Get the argument from the command line
+argument = ARGV[0]
 
-# Extract and print SMS information
-extract_sms_info(input_text)
+# Call the match_string method
+extract_sms_info(argument)
