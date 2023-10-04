@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# A bash script that displays listening ports
+
+# Use netstat to display listening ports and associated processes
+netstat -tuln | awk 'NR > 2 {
+    pid = $NF
+    getline
+    cmd = $0
+    sub(/\//, " ", cmd)
+    printf "Port: %s\tPID: %s\tCommand: %s\n", $4, pid, cmd
+}'
