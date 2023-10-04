@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 def match_string(arg)
-    regex = /hb(t{0,5})n(?!.*o)/
+    regex = /hb(t{0,5})(?!.*o)n/
     matched_text = arg.scan(regex).map { |match| "hb#{match[0]}n" }.join("\n")
     puts matched_text
 end
