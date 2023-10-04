@@ -1,18 +1,22 @@
 #!/usr/bin/env ruby
 
-def extract_transaction_info(text)
-    # Define the regular expression pattern to match transactions
-    pattern = /(\S+)\s+>\s+(\S+)\s+\[(.*?)\]/
+def extract_sms_info(text)
+    # Remove HTML entities like &nbsp; and replace them with spaces
+    cleaned_text = text.gsub(/&nbsp;/, ' ')
     
-    # Extract sender, receiver, and flags using the pattern
-    matches = text.scan(pattern)
-
-    # Print the extracted information
-    matches.each do |match|
-        sender = match[0]
-        receiver = match[1]
-        flags = match[2]
+    # Define the regular expression pattern to match the required information
+    pattern = /\[from:(\d+)\] \[to:(\d+)\] \[flags:(.*?)\]/
+    
+    # Use the pattern to extract sender, receiver, and flags
+    match_data = cleaned_text.match(pattern)
+    
+    if match_data
+        sender = match_data[1]
+        receiver = match_data[2]
+        flags = match_data[3]
         puts "#{sender},#{receiver},#{flags}"
+    else
+        puts "No match found in the input."
     end
 end
 
