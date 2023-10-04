@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
 def match_string(arg)
-    regex = /hbt\{2,5\}n/
-    matched_text = arg.scan(regex).join
+    regex = /hb(t{2,5})n/
+    matched_text = arg.scan(regex).map { |match| "hb#{match[0]}n" }.join("\n")
     puts matched_text
 end
 
