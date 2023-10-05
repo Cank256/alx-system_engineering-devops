@@ -4,3 +4,35 @@
 # Requirements:
 # localhost resolves to 127.0.0.2
 # facebook.com resolves to 8.8.8.8.
+
+# Check if the script is run with superuser privileges
+if [ "$(id -u)" != "0" ]; then
+    echo "This script requires superuser privileges to modify DNS configuration."
+    exit 1
+fi
+
+# Define the custom DNS mappings
+custom_dns_mappings="/etc/custom_dns_mappings.conf"
+
+# Check if the custom DNS mappings file already exists, and if not, create it
+if [ ! -f "$custom_dns_mappings" ]; then
+    touch "$custom_dns_mappings"
+fi
+
+# Add the custom DNS mappings for localhost and facebook.com
+echo "127.0.0.2 localhost" >> "$custom_dns_mappings"
+echo "8.8.8.8 facebook.com" >> "$custom_dns_mappings"
+
+# Apply the custom DNS configuration
+cp "$custom_dns_mappings" /etc/hosts
+
+# Inform the user about the changes
+echo "DNS configuration updated:"
+cat "$custom_dns_mappings"
+
+# Restart the networking service to apply changes
+# (you may need to reboot for some changes to take effect)
+systemctl restart networking
+
+echo "DNS configuration updated.
+You may need to reboot for some changes to take full effect."
