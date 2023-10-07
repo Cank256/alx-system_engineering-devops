@@ -3,7 +3,8 @@
 
 # Check if an argument is provided
 if [ $# -ne 1 ]; then
-    echo "Usage: $0 {IP_ADDRESS}"
+    script_name=$(basename "$0")
+    echo "Usage: $script_name {IP_ADDRESS}"
     exit 1
 fi
 
