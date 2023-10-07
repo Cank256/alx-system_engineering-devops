@@ -19,8 +19,8 @@ if [ ! -f "$custom_dns_mappings" ]; then
     touch "$custom_dns_mappings"
 fi
 
-# Add the custom DNS mappings for localhost and facebook.com
-echo -e "127.0.0.2 localhost\n8.8.8.8 facebook.com" >> "$custom_dns_mappings"
+# Clear existing content and add the custom DNS mappings for localhost and facebook.com
+echo -e "127.0.0.2 localhost\n8.8.8.8 facebook.com" > "$custom_dns_mappings"
 
 # Apply the custom DNS configuration
 cp "$custom_dns_mappings" /etc/hosts
