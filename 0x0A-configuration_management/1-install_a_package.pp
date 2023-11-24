@@ -7,7 +7,7 @@ package { 'python3-pip':
 
 exec { 'install_flask':
   require => Package['python3-pip'],
-  command => '/usr/bin/pip3 install flask==2.1.0',
-  path    => '/usr/bin',
-  creates => '/usr/local/lib/python3.8/dist-packages/flask',
+  command => 'pip3 install flask==2.1.0',
+  path    => ['/usr/bin/'],
+  unless  => '/usr/bin/test -f /usr/local/lib/python3.4/dist-packages/flask/app.py'
 }
