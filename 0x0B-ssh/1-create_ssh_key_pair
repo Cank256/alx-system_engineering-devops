@@ -7,4 +7,5 @@ passphrase="betty"
 # Generate RSA key pair with 4096 bits
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/school -N "$passphrase"
 
-echo "RSA key pair 'school' with 4096 bits has been created and protected by the passphrase 'betty'."
+echo "RSA key pair 'school' with 4096 bits \
+has been created and protected by the passphrase 'betty'."
