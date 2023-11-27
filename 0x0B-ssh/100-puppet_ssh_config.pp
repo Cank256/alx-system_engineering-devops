@@ -1,6 +1,6 @@
 # ssh_config.pp
 
-file { '~/.ssh/config':
+file { '/etc/ssh/ssh_config':
   ensure => present,
   content => '
     Host school
