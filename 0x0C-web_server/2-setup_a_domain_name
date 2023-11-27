@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Bash script to install and configure Nginx on a new Ubuntu machine
+
+# Update package list and install Nginx with the -y flag
+sudo apt-get update
+sudo apt-get install -y nginx
+
+# Create a custom Nginx configuration file
+echo 'server {
+    listen 80;
+    server_name _;
+
+    location / {
+        return 200 "Hello World!";
+    }
+}' | sudo tee /etc/nginx/sites-available/default > /dev/null
+
+# Restart Nginx without using systemctl
+sudo /etc/init.d/nginx restart
