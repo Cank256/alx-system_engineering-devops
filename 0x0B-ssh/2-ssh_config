@@ -1,6 +1,6 @@
 Host school
-  HostName 18.207.3.75
+  HostName 54.236.26.29
   User ubuntu
   IdentityFile ~/.ssh/school
-  PreferredAuthentications publickey
+  PreferredAuthentications privatekey
   PasswordAuthentication no

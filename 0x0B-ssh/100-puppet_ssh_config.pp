@@ -4,7 +4,7 @@ file { '/etc/ssh/ssh_config':
   ensure => present,
   content => '
     Host school
-      HostName 18.207.3.75
+      HostName 3.90.82.131
       User ubuntu
       IdentityFile ~/.ssh/school
       PreferredAuthentications publickey
