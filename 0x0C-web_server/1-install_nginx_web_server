@@ -17,7 +17,7 @@ sudo sed -i 's/^\(listen 80;\)/\1/' /etc/nginx/sites-available/default
 sudo service nginx restart
 
 # Create a temporary HTML file with "Hello World!"
-echo "<html><head><title>Hello World!</title></head><body>Hello World!</body></html>" | sudo tee /var/www/html/index.html
+echo '<html><head><title>Hello World!</title></head><body>Hello World!</body></html>' | sudo tee /var/www/html/index.html
 
 # Verify nginx configuration
 sudo nginx -t
