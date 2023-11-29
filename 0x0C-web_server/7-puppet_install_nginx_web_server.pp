@@ -12,7 +12,7 @@ service { 'nginx':
   require => Package['nginx'],
 }
 
-# Configure Nginx to listen on port 80
+# Template for Nginx default configuration
 file { '/etc/nginx/sites-available/default':
   ensure  => file,
   content => template('nginx/default.erb'),
@@ -23,17 +23,5 @@ file { '/etc/nginx/sites-available/default':
 file { '/var/www/html/404.html':
   ensure  => file,
   content => 'Ceci n\'est pas une page',
-  notify  => Service['nginx'],
-}
-
-# Notify Nginx to reload when the default configuration changes
-service { 'nginx':
-  subscribe => File['/etc/nginx/sites-available/default'],
-}
-
-# Template for Nginx default configuration
-file { '/etc/nginx/sites-available/default':
-  ensure  => file,
-  content => template('nginx/default.erb'),
   notify  => Service['nginx'],
 }
