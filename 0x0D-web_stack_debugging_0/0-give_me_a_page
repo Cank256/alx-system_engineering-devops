@@ -5,27 +5,30 @@
 docker run -p 8080:80 -d -it holbertonschool/265-0
 
 # Check the running containers to get the CONTAINER_ID
-CONTAINER_ID=$(docker ps -q)
+docker ps
 
 # Connect to the container using the CONTAINER_ID obtained from the previous step
-docker exec -it "$CONTAINER_ID" /bin/bash <<'EOF'
-    # Inside the container, install Apache (if not already installed)
-    apt-get update
-    apt-get install -y apache2
+docker exec -it CONTAINER_ID /bin/bash
 
-    # Set the ServerName directive to suppress the warning
-    echo "ServerName localhost" >> /etc/apache2/apache2.conf
+# Inside the container, install Apache (if not already installed)
+apt-get update
+apt-get install -y apache2
 
-    # Create an HTML file with the content "Hello Holberton"
-    echo "Hello Holberton" > /var/www/html/index.html
+# Set the ServerName directive to suppress the warning
+echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-    # Restart Apache to apply the changes
-    service apache2 restart
+# Create an HTML file with the content "Hello Holberton"
+echo "Hello Holberton" > /var/www/html/index.html
 
-    # Check if Apache is running
-    if service apache2 status | grep -q "apache2 is running"; then
-        echo "Apache is running"
-    else
-        echo "Apache is not running"
-    fi
-EOF
+# Restart Apache to apply the changes
+service apache2 restart
+
+# Check if Apache is running
+if service apache2 status | grep -q "apache2 is running"; then
+    echo "Apache is running"
+else
+    echo "Apache is not running"
+fi
+
+# Exit the container
+exit
