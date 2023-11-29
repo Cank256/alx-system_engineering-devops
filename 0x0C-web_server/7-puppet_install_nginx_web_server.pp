@@ -32,6 +32,38 @@ file { '/var/www/html/404.html':
   notify  => Service['nginx'],
 }
 
+# Configure Nginx default site
+file { '/etc/nginx/sites-available/default':
+  ensure  => file,
+  content => "
+    server {
+        listen 80;
+        listen [::]:80;
+
+        server_name cank.tech;
+
+        root /var/www/html;
+        index index.html;
+
+        location / {
+            try_files \$uri \$uri/ =404;
+        }
+
+        location /redirect_me {
+            return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
+
+        error_page 404 /404.html;
+        location = /404.html {
+            root /var/www/html;
+            internal;
+            return 404 \"Ceci n'est pas une page\";
+        }
+    }
+  ",
+  notify => Service['nginx'],
+}
+
 # Restart nginx without using systemctl
 exec { 'nginx-restart':
   command => '/usr/sbin/service nginx restart',
