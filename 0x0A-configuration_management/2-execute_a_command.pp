@@ -1,5 +1,4 @@
-# This Puppet manifest kills a
-# process named 'killmenow' using pkill
+# File: killmenow_manifest.pp
 
 exec { 'kill_killmenow':
   command     => 'pkill killmenow',
