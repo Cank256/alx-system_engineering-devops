@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
-# Execute the script for installing Nginx
-./1-install_nginx_web_server.sh
+# Update the package list
+sudo apt-get update
+
+# Install nginx
+sudo apt-get install -y nginx
+
+# Ensure nginx is running
+sudo service nginx start
 
 # Configure redirection in Nginx
-sudo sed -i '/listen 80;/a \\n\tlocation /redirect_me {\n\t\treturn 301 http://www.redirectedpage.com;\n\t}' /etc/nginx/sites-available/default
+sudo sed -i -e '/listen 80;/a \\n\tlocation /redirect_me {\n\t\treturn 301 http://www.redirectedpage.com;\n\t}' -e 's/^\(listen 80;\)/\1/' /etc/nginx/sites-available/default
 
 # Verify nginx configuration
 sudo nginx -t
