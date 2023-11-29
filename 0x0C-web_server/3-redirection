@@ -11,7 +11,23 @@ sudo apt-get install -y nginx
 sudo service nginx start
 
 # Configure redirection in Nginx
-sudo sed -i -e '/listen 80;/a \\n\tlocation /redirect_me {\n\t\treturn 301 http://www.redirectedpage.com;\n\t}' -e 's/^\(listen 80;\)/\1/' /etc/nginx/sites-available/default
+echo 'server {
+        listen 80;
+        listen [::]:80;
+
+        server_name cank.tech;
+
+        root /var/www/html;
+        index index.html;
+
+        location / {
+            try_files $uri $uri/ =404;
+        }
+        
+        location /redirect_me {
+                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
+}' | sudo tee /etc/nginx/sites-available/default > /dev/null
 
 # Verify nginx configuration
 sudo nginx -t
