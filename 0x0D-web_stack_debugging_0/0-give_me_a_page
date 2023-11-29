@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+# Script to create a docker container
+
 # Start the Docker container, mapping host port 8080 to container port 80
 docker run -p 8080:80 -d -it holbertonschool/265-0
 
