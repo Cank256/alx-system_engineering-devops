@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# COnfigure a redirect in nginx
 
 # Update the package list
 sudo apt-get update
