@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# COnfigure a redirect in nginx
+# Configure a redirect in nginx
 
 # Update the package list
 sudo apt-get update
@@ -28,6 +28,9 @@ echo "server {
                 return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
         }
 }" | sudo tee /etc/nginx/sites-available/default > /dev/null
+
+# Restart nginx without using systemctl
+sudo service nginx restart
 
 # Verify nginx configuration
 sudo nginx -t
