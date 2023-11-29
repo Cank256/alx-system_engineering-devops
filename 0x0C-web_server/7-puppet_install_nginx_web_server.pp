@@ -18,6 +18,13 @@ service { 'nginx':
   require => Package['nginx'],
 }
 
+# Create a custom index page
+file { '/var/www/html/index.html':
+  ensure  => file,
+  content => 'Hello World!',
+  notify  => Service['nginx'],
+}
+
 # Create a custom 404 page
 file { '/var/www/html/404.html':
   ensure  => file,
