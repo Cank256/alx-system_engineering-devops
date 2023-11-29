@@ -3,19 +3,19 @@
 # Bash script to configure Nginx on a new Ubuntu machine
 
 # Create a custom Nginx configuration file
-echo '#server {
-#       listen 80;
-#       listen [::]:80;
-#
-#       server_name cank.tech;
-#
-#       root /var/www/html;
-#       index index.html;
-#
-#       location / {
-#               try_files $uri $uri/ =404;
-#       }
-#}' | sudo tee /etc/nginx/sites-available/default > /dev/null
+echo 'server {
+        listen 80;
+        listen [::]:80;
+
+        server_name cank.tech;
+
+        root /var/www/html;
+        index index.html;
+
+        location / {
+            try_files $uri $uri/ =404;
+        }
+}' | sudo tee /etc/nginx/sites-available/default > /dev/null
 
 # Restart Nginx without using systemctl
 sudo /etc/init.d/nginx restart
