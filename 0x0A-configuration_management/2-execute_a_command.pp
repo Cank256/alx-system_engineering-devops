@@ -1,6 +1,7 @@
 # File: killmenow_manifest.pp
 
 exec { 'kill_killmenow':
-  command     => '/usr/bin/pkill -9 killmenow',
+  command     => 'pkill killmenow',
   refreshonly => true,
+  path        => ['/usr/bin/'],
 }
