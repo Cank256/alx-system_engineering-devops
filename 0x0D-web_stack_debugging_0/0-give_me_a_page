@@ -5,20 +5,20 @@
 docker run -p 8080:80 -d -it holbertonschool/265-0
 
 # Check the running containers to get the CONTAINER_ID
-docker ps
+CONTAINER_ID=$(docker ps -q)
 
 # Connect to the container using the CONTAINER_ID obtained from the previous step
-docker exec -it CONTAINER_ID /bin/bash
+docker exec -it $CONTAINER_ID /bin/bash <<'EOF'
+    # Inside the container, install Apache (if not already installed)
+    apt-get update
+    apt-get install -y apache2
 
-# Inside the container, install Apache (if not already installed)
-apt-get update
-apt-get install -y apache2
+    # Set the ServerName directive to suppress the warning
+    echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# Create an HTML file with the content "Hello Holberton"
-echo "Hello Holberton" > /var/www/html/index.html
+    # Create an HTML file with the content "Hello Holberton"
+    echo "Hello Holberton" > /var/www/html/index.html
 
-# Restart Apache to apply the changes
-service apache2 restart
-
-# Exit the container
-exit
+    # Restart Apache to apply the changes
+    service apache2 restart
+EOF
