@@ -10,12 +10,15 @@ sudo apt-get install -y nginx
 # Ensure nginx is running
 sudo service nginx start
 
+# Create a temporary HTML file with "Hello World!"
+echo '<html><head><title>Hello World!</title></head><body>Hello World!</body></html>' | sudo tee /var/www/html/index.html
+
 # Configure redirection and error handling in Nginx
 echo "server {
         listen 80;
         listen [::]:80;
 
-        server_name cank.tech;
+        server_name localhost;
 
         root /var/www/html;
         index index.html;
