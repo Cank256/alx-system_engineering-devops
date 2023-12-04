@@ -39,5 +39,8 @@ echo "server {
 # Configure custom HTTP header
 sudo echo "add_header X-Served-By \$HOSTNAME;" | sudo tee -a /etc/nginx/sites-available/default
 
+# Verify nginx configuration
+sudo nginx -t
+
 # Restart Nginx for changes to take effect
 sudo service nginx restart
