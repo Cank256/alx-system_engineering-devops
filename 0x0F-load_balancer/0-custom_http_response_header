@@ -1,12 +1,44 @@
 #!/usr/bin/env bash
-# This script configures Nginx to add a custom HTTP header to its response.
+# Script to install NGINX server
 
-# Update package list and install Nginx
+# Update the package list
 sudo apt-get update
-sudo apt-get -y install nginx
+
+# Install nginx
+sudo apt-get install -y nginx
+
+# Ensure nginx is running
+sudo service nginx start
 
 # Configure custom HTTP header
-sudo echo "add_header X-Served-By \$HOSTNAME;" | sudo tee -a /etc/nginx/sites-available/default
+# sudo echo "add_header X-Served-By \$HOSTNAME;" | sudo tee -a /etc/nginx/sites-available/default
+
+# Configure redirection and error handling in Nginx
+echo "server {
+        listen 80;
+        listen [::]:80;
+
+        server_name cank.tech;
+
+        root /var/www/html;
+        index index.html;
+
+        location / {
+            try_files \$uri \$uri/ =404;
+        }
+        
+        location /redirect_me {
+            return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
+
+        error_page 404 /404.html;
+        location = /404.html {
+            root /var/www/html;
+            internal;
+            return 404 \"Ceci n'est pas une page\";
+        }
+}
+add_header X-Served-By \$HOSTNAME;" | sudo tee /etc/nginx/sites-available/default > /dev/null
 
 # Restart Nginx for changes to take effect
 sudo service nginx restart
