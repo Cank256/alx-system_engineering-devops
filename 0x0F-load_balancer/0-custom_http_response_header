@@ -10,9 +10,6 @@ sudo apt-get install -y nginx
 # Ensure nginx is running
 sudo service nginx start
 
-# Configure custom HTTP header
-# sudo echo "add_header X-Served-By \$HOSTNAME;" | sudo tee -a /etc/nginx/sites-available/default
-
 # Configure redirection and error handling in Nginx
 echo "server {
         listen 80;
@@ -37,8 +34,10 @@ echo "server {
             internal;
             return 404 \"Ceci n'est pas une page\";
         }
-}
-add_header X-Served-By \$HOSTNAME;" | sudo tee /etc/nginx/sites-available/default > /dev/null
+}" | sudo tee /etc/nginx/sites-available/default > /dev/null
+
+# Configure custom HTTP header
+sudo echo "add_header X-Served-By \$HOSTNAME;" | sudo tee -a /etc/nginx/sites-available/default
 
 # Restart Nginx for changes to take effect
 sudo service nginx restart
