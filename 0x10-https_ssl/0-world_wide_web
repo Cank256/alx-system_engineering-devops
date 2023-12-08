@@ -11,7 +11,7 @@ else
 fi
 
 for sub in "${subdomains[@]}"; do
-    record=$(dig +short $sub.$domain)
-    type=$(dig +short $sub.$domain | awk '{print $4}')
+    record=$(dig +short "$sub"."$domain")
+    type=$(dig +short "$sub"."$domain" | awk '{print $4}')
     echo "The subdomain $sub is a $type record and points to $record"
 done

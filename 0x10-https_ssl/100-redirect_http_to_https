@@ -2,13 +2,13 @@
 # HAproxy HTTP to HTTPS redirect config
 
 frontend www-http
-    bind *:80
-    redirect scheme https code 301 if !{ ssl_fc }
+    bind ./*glob*:80
+    redirect scheme https code 301 if !\{ ssl_fc \}
 
 frontend www-https
-    bind *:443 ssl crt /etc/ssl/holberton.pem
+    bind ./*glob*:443 ssl crt /etc/ssl/holberton.pem
     reqadd X-Forwarded-Proto:\ https
-    acl is_holberton hdr_end(host) -i www.holberton.online
+    acl is_holberton hdr_end\(host\) -i www.holberton.online
     use_backend holberton if is_holberton
 
 backend holberton
