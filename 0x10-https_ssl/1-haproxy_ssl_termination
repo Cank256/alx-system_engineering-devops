@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 # HAproxy SSL termination config
 
-frontend www-https
-    bind ./*glob*:443 ssl crt /etc/ssl/holberton.pem
-    reqadd X-Forwarded-Proto:\ https
-    acl is_holberton hdr_end\(host\) -i www.holberton.online
-    use_backend holberton if is_holberton
+frontend https
+  bind ./*glob*:443 ssl crt /etc/ssl/certs/your_domain.crt key /etc/ssl/private/your_domain.key
 
-backend holberton
-    balance roundrobin
-    server web-01 34.198.248.145:80 check
-    server web-02 54.89.38.100:80 check
+# Redirect HTTP to HTTPS
+redirect scheme https if !\{ ssl_fc \}
+
+# Use a round-robin load balancing algorithm
+mode tcp
+balance roundrobin
+
+# Backend server for web servers
+backend web_servers
+    server web-01 34.198.248.145:80
+    server web-02 54.89.38.100:80
