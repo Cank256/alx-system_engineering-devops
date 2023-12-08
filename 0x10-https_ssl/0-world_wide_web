@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Display information about subdomains
+
+domain=$1
+subdomain=$2
+
+if [ -z "$subdomain" ]; then
+    subdomains=("www" "lb-01" "web-01" "web-02")
+else
+    subdomains=("$subdomain")
+fi
+
+for sub in "${subdomains[@]}"; do
+    record=$(dig +short $sub.$domain)
+    type=$(dig +short $sub.$domain | awk '{print $4}')
+    echo "The subdomain $sub is a $type record and points to $record"
+done

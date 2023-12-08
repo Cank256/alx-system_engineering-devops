@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# HAproxy HTTP to HTTPS redirect config
+
+frontend www-http
+    bind *:80
+    redirect scheme https code 301 if !{ ssl_fc }
+
+frontend www-https
+    bind *:443 ssl crt /etc/ssl/holberton.pem
+    reqadd X-Forwarded-Proto:\ https
+    acl is_holberton hdr_end(host) -i www.holberton.online
+    use_backend holberton if is_holberton
+
+backend holberton
+    balance roundrobin
+    server web-01 34.198.248.145:80 check
+    server web-02 54.89.38.100:80 check
