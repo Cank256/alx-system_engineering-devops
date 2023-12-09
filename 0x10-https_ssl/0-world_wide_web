@@ -1,32 +1,39 @@
 #!/usr/bin/env bash
-# Display information about subdomains
 
-# Usage: ./0-world_wide_web.sh <domain> [<subdomain>]
+# Display usage message if no domain is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <domain> [subdomain]"
+  exit 1
+fi
 
 domain="$1"
 subdomain="$2"
 
-# Check if the required arguments are provided
-if [ -z "$domain" ]; then
-  echo "Error: Please provide a domain name as the first argument."
-  exit 1
-fi
+# Function to query DNS records
+get_record() {
+  record_type="$1"
+  subdomain="${2:-$domain}"
+  dig "$subdomain.$domain" +short -t "$record_type"
+}
 
-# Define the subdomains to check if no subdomain is provided
-if [ -z "$subdomain" ]; then
-  subdomains=(www lb-01 web-01 web-02)
-else
-  subdomains=("$subdomain")
-fi
-
-# Check the DNS record for each subdomain
-for subdomain in "${subdomains[@]}"; do
-  record_type=$(dig "$subdomain.$domain" +short | awk -F '[: ]+' '{print $2}')
-  destination=$(dig "$subdomain.$domain" +short | awk -F '[: ]+' '{print $5}')
-
+# Display information about specific subdomain
+if [ -n "$subdomain" ]; then
+  record_type="$(get_record A)"
+  destination="$(get_record A)"
   if [ -z "$record_type" ]; then
-    echo "Error: Subdomain '$subdomain' doesn't exist for domain '$domain'."
+    echo "Subdomain $subdomain does not exist."
   else
-    echo "The subdomain '$subdomain' is a '$record_type' record and points to '$destination'."
+    echo "The subdomain $subdomain is a $record_type record and points to $destination"
   fi
-done
+else
+  # Display information about specific subdomains
+  for subdomain in www lb-01 web-01 web-02; do
+    record_type="$(get_record A "$subdomain")"
+    destination="$(get_record A "$subdomain")"
+    if [ -z "$record_type" ]; then
+      echo "Subdomain $subdomain does not exist."
+    else
+      echo "The subdomain $subdomain is a $record_type record and points to $destination"
+    fi
+  done
+fi
