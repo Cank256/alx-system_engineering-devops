@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-#Bash script that configures Nginx to listen on port 80
-sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
-service nginx restart
+# Bash script that configures Nginx to listen on port 80
+sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+sudo nginx -s reload
