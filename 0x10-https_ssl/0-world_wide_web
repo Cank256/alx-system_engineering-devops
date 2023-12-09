@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Display information about subdomains
 
 # Display usage message if no domain is provided
 if [ -z "$1" ]; then
