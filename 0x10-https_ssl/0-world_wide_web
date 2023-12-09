@@ -1,40 +1,21 @@
 #!/usr/bin/env bash
-# Display information about subdomains
+# This script displays information about subdomains.
 
-# Display usage message if no domain is provided
-if [ -z "$1" ]; then
-  echo "Usage: $0 <domain> [subdomain]"
-  exit 1
-fi
+domain=$1
+subdomain=$2
 
-domain="$1"
-subdomain="$2"
-
-# Function to query DNS records
-get_record() {
-  record_type="$1"
-  subdomain="${2:-$domain}"
-  dig "$subdomain.$domain" +short -t "$record_type"
+function check_subdomain {
+    sub_domain=$1
+    record_type=$(dig $sub_domain.$domain | awk '/ANSWER SECTION:/ {getline; split($0, arr); print arr[4]}')
+    destination=$(dig $sub_domain.$domain | awk '/ANSWER SECTION:/ {getline; split($0, arr); print arr[5]}')
+    echo "The subdomain $sub_domain is a $record_type record and points to $destination"
 }
 
-# Display information about specific subdomain
-if [ -n "$subdomain" ]; then
-  record_type="$(get_record A)"
-  destination="$(get_record A)"
-  if [ -z "$record_type" ]; then
-    echo "Subdomain $subdomain does not exist."
-  else
-    echo "The subdomain $subdomain is a $record_type record and points to $destination"
-  fi
+if [ -z "$subdomain" ]; then
+    check_subdomain www
+    check_subdomain lb-01
+    check_subdomain web-01
+    check_subdomain web-02
 else
-  # Display information about specific subdomains
-  for subdomain in www lb-01 web-01 web-02; do
-    record_type="$(get_record A "$subdomain")"
-    destination="$(get_record A "$subdomain")"
-    if [ -z "$record_type" ]; then
-      echo "Subdomain $subdomain does not exist."
-    else
-      echo "The subdomain $subdomain is a $record_type record and points to $destination"
-    fi
-  done
+    check_subdomain $subdomain
 fi
