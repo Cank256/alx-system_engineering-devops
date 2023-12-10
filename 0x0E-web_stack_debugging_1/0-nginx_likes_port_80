@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
 # Bash script that configures Nginx to listen on port 80
 
+# Add a simple HTML file for the root (/) route
+echo "<html><body><h1>Hello, this is the root!</h1></body></html>" > /var/www/html/index.html
+
 # Replace 'listen 80 default_server;' with 'listen 80;' in the Nginx configuration
 sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+
+# Add configuration for the root route directly after the sed command
+cat <<EOL >> /etc/nginx/sites-available/default
+location / {
+    root /var/www/html;
+    index index.html index.htm;
+}
+EOL
 
 # Restart the Nginx service
 service nginx restart;
