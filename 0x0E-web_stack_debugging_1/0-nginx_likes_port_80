@@ -1,4 +1,19 @@
 #!/usr/bin/env bash
 # Bash script that configures Nginx to listen on port 80
-sudo sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
-sudo nginx -s reload
+
+# Replace 'listen 80 default_server;' with 'listen 80;' in the Nginx configuration
+sed -i 's/listen 80 default_server;/listen 80;/g' /etc/nginx/sites-available/default
+
+# Restart the Nginx service
+if service nginx restart; then
+  echo "Nginx restarted successfully"
+
+  # Check if Nginx is serving a web page with HTTP 200 on port 80
+  if curl -s -I http://localhost | grep "HTTP/1.1 200 OK"; then
+    echo "Nginx is serving a web page with HTTP 200 on port 80"
+  else
+    echo "Error: Nginx is not serving the expected web page or HTTP 200 response on port 80"
+  fi
+else
+  echo "Error: Nginx restart failed"
+fi
