@@ -1,0 +1,7 @@
+# MySQL Primary Configuration
+
+[mysqld]
+bind-address = 0.0.0.0
+server-id = 1
+log-bin = /var/log/mysql/mysql-bin.log
+binlog-do-db = tyrell_corp

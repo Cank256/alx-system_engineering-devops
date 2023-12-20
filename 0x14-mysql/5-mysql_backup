@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Generate MySQL dump and create a compressed archive
+
+# MySQL credentials
+MYSQL_USER="root"
+MYSQL_PASSWORD="$1"
+
+# Backup directory
+BACKUP_DIR="$(date +'%d-%m-%Y')"
+mkdir -p "${BACKUP_DIR}"
+
+# MySQL dump and compress
+mysqldump -u${MYSQL_USER} -p${MYSQL_PASSWORD} --all-databases > "${BACKUP_DIR}/backup.sql"
+tar -czvf "${BACKUP_DIR}.tar.gz" "${BACKUP_DIR}"
+
+# Clean up
+rm -rf "${BACKUP_DIR}"

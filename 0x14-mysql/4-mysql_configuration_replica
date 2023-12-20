@@ -1,0 +1,7 @@
+# MySQL Replica Configuration
+
+[mysqld]
+server-id = 2
+relay-log = /var/log/mysql/mysql-relay-bin.log
+log-slave-updates = 1
+replicate-do-db = tyrell_corp
