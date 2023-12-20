@@ -1,4 +1,8 @@
-*nat
-:PREROUTING ACCEPT [0:0]
--A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
+# 
+# Firewal config file
+*nat :PREROUTING ACCEPT [0:0] -A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
+
+# Don't delete the 'COMMIT' line or these rules won't be processed
 COMMIT
+
+# Rest of the file...
