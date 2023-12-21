@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 # Bash script that configures Nginx to listen on port 80
 service nginx restart
+curl 0:80
