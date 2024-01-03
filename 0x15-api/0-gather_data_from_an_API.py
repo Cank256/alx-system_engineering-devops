@@ -36,9 +36,10 @@ def fetch_todo_list_progress(employee_id):
     todos = todos_response.json()
     total_tasks = len(todos)
     completed_tasks = sum(1 for task in todos if task.get('completed'))
-    the_tasks = completed_tasks / total_tasks
+
     # Displaying TODO list progress
-    print(f"Employee {employee_name} is done with tasks({the_tasks}):")
+    tasks_ratio = f"{completed_tasks}/{total_tasks}"
+    print(f"Employee {employee_name} is done with tasks({tasks_ratio}):")
     for task in todos:
         if task.get('completed'):
             print(f"\t {task.get('title')}")
