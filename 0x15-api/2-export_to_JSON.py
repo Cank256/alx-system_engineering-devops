@@ -3,8 +3,8 @@
 This script exports employee's TODO list data to a JSON file.
 """
 
-import requests
 import json
+import requests
 import sys
 
 if __name__ == "__main__":

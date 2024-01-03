@@ -3,8 +3,8 @@
 This script exports data of all employees' TODO lists to a single JSON file.
 """
 
-import requests
 import json
+import requests
 
 if __name__ == "__main__":
     base_url = 'https://jsonplaceholder.typicode.com/'

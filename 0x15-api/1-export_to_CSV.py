@@ -3,8 +3,8 @@
 This script exports employee's TODO list data to a CSV file.
 """
 
-import requests
 import csv
+import requests
 import sys
 
 if __name__ == "__main__":
