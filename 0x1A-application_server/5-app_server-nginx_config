@@ -1,0 +1,22 @@
+# Create a systemd service file (gunicorn.service) for Gunicorn
+# Save it in the appropriate directory on web-01
+
+# Example content for gunicorn.service
+[Unit]
+Description=Gunicorn instance to serve AirBnB clone
+After=network.target
+
+[Service]
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/path/to/your/AirBnB_clone_v4
+ExecStart=/path/to/your/AirBnB_clone_v4/bin/gunicorn --workers 3 --bind 0.0.0.0:5003 web_dynamic.2-hbnb:app
+Restart=always
+SyslogIdentifier=gunicorn
+
+[Install]
+WantedBy=multi-user.target
+
+# Start the systemd service
+sudo systemctl start gunicorn
+sudo systemctl enable gunicorn
